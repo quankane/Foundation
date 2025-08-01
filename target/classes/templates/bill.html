@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 768px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 1.875rem;
+            margin: 0;
+        }
+        .header p {
+            color: #4b5563;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        .grid-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e5e7eb;
+        }
+        .table th, .table td {
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .table th {
+            background-color: #f3f4f6;
+            text-align: left;
+        }
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 2rem;
+        }
+        .button {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1>Payment Receipt</h1>
+        <p>Payment ID: <span th:text="${paymentId}"></span></p>
+    </div>
+
+    <!-- Customer Information -->
+    <div class="section">
+        <h2>Customer Information</h2>
+        <div class="grid grid-2">
+            <div>
+                <p><strong>Name:</strong> <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
+                <p><strong>Email:</strong> <span th:text="${user.emailOrPhone}"></span></p>
+            </div>
+            <div>
+                <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
+                <p><strong>Payment Method:</strong> <span th:text="${paymentMethod}"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details -->
+    <div class="section">
+        <h2>Order Details</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Repeat Order Rows Here -->
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.dish.dishName}"></td>
+                <td th:text="${order.quantity}"></td>
+                <td th:text="${order.dish.price}"></td>
+                <td id="totalPrice" th:text="${order.totalPrice}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total Amount -->
+    <div class="section">
+        <div style="display: flex; justify-content: space-between; font-weight: bold;">
+            <span>Total Amount:</span>
+            <span th:text="${amount}"></span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Thank you for your order!</p>
+        <p>Please keep this receipt for your records.</p>
+    </div>
+
+    <!-- Button -->
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="https://restaurant-ba062.web.app/" class="button">Back to Home</a>
+    </div>
+</div>
+<script>
+    // Lấy giá trị totalPrice từ thẻ HTML
+    const totalPrice = document.getElementById('totalPrice').textContent;
+
+    // Định dạng giá trị totalPrice với dấu phân cách hàng nghìn
+    const formattedPrice = parseFloat(totalPrice).toLocaleString('de-DE');
+
+    // Cập nhật lại giá trị vào thẻ HTML
+    document.getElementById('totalPrice').textContent = formattedPrice;
+</script>
+</body>
+</html>

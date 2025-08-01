@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        .notification-box {
+            text-align: center;
+            padding: 20px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .notification-box h1 {
+            font-size: 24px;
+            color: #d9534f;
+            margin-bottom: 15px;
+        }
+
+        .notification-box p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .notification-box button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .notification-box button:hover {
+            background-color: #0056b3;
+        }
+
+        .notification-box button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+<div class="notification-box">
+    <h1>Payment Failed</h1>
+    <p>We couldn't process your payment. Please try again later.</p>
+    <a href="https://restaurant-ba062.web.app/" style="text-decoration: none;">
+        <button>Back to Home</button>
+    </a>
+</div>
+</body>
+</html>

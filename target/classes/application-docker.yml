@@ -1,0 +1,75 @@
+spring:
+  application:
+    name: restaurant-ordering-webapp
+  config:
+    activate:
+      on-profile: docker
+  devtools:
+    add-properties: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://mysql:3306/meomeodb?createDatabaseIfNotExist=true
+    username: root
+    password: 5zm7aa8o
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bangtranvan08@gmail.com
+    password: lxvegwsaafciadbp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+logging:
+  level:
+    root: info
+    com:
+      lankydan:
+        service: info
+  config: classpath:logback-spring.xml
+  file:
+    name: logs
+
+app:
+  jwt-secret: d23507c6beedda00c5c65a1f0edfafea5adbbcbaa3a6225213542cfb16a914f6
+  jwt-expiration-milliseconds: 3600000
+  redis:
+    host: redis
+    port: 6379
+    password: 5zm7aa8o
+
+payment:
+  vnpay:
+    url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    tmnCode: HBLT6TYE
+    secretKey: 6BQXUM1W77CSLY9S7709U5II5S6HO6RS
+    returnUrl: http://localhost:8080/api/payments/bill
+    version: 2.1.0
+    command: pay
+    orderType: other
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+openapi:
+  service:
+    api-docs: e-fyp
+    server: http://localhost:${server.port}
+    title: E-FYP API
+    version: 1.0.0
+
+environment:
+  info: docker_environment

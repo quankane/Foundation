@@ -1,0 +1,5 @@
+# Created at 2025-07-13T20:33:50.427
+Boot Manifest-JAR contains absolute paths in classpath 'D:\PTUDTMDT\restaurant-ordering-webapp-basic-setup\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

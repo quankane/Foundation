@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    cap_add:
+      - SYS_NICE
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=meomeodb
+      - MYSQL_ROOT_PASSWORD=5zm7aa8o
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    networks:
+        - default
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - /path/to/local/dаta:/root/redis
+      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=5zm7aa8o
+      - REDIS_PORT=6379
+    networks:
+      - default
+
+  restaurant-ordering-webapp:
+    container_name: meomeo-restaurant
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: bangtranvan2004/restaurant-ordering-webapp:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker  # Set environment variable to 'docker'
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+
+networks:
+  default:
+    name: restaurant
+
+volumes:
+  mysql_data:
+  redis:
+
+# docker compose up -d --build
